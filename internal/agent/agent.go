@@ -137,6 +137,7 @@ func (a *Agent) setupServer() error {
 	serverConfig := &server.Config{
 		CommitLog:  a.log,
 		Authorizer: authorizer,
+		GetServer:  a.log,
 	}
 	var opts []grpc.ServerOption
 	if a.Config.ServerTLSConfig != nil {
