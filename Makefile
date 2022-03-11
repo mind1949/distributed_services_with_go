@@ -55,3 +55,8 @@ $(CONFIG_PATH)/policy.csv:
 .PHONY: test
 test: $(CONFIG_PATH)/policy.csv $(CONFIG_PATH)/model.conf
 	go test -race ./...  -v
+
+TAG ?= 0.0.1
+
+build-docker:
+	docker build -t github.com/mind1949/proglog:$(TAG) .
