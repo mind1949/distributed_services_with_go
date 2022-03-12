@@ -1,0 +1,14 @@
+# Default values for proglog.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: github.com/mind1949/proglog
+  tag: 0.0.1
+  pullPolicy: IfNotPresent
+serfPort: 8401
+rpcPort: 8400
+replicas: 3
+storage: 1Gi

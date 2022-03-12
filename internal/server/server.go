@@ -20,8 +20,11 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/health"
 	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/status"
+
+	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 )
 
 func NewGRPCServer(config *Config, grpcOpts ...grpc.ServerOption) (*grpc.Server, error) {
@@ -67,13 +70,18 @@ func NewGRPCServer(config *Config, grpcOpts ...grpc.ServerOption) (*grpc.Server,
 		grpc.StatsHandler(&ocgrpc.ServerHandler{}),
 	)
 
-	gSrv := grpc.NewServer(grpcOpts...)
+	gsrv := grpc.NewServer(grpcOpts...)
+
+	hsrv := health.NewServer()
+	hsrv.SetServingStatus("", healthpb.HealthCheckResponse_SERVING)
+	healthpb.RegisterHealthServer(gsrv, hsrv)
+
 	srv, err := newGrpcServer(config)
 	if err != nil {
 		return nil, err
 	}
-	api.RegisterLogServer(gSrv, srv)
-	return gSrv, nil
+	api.RegisterLogServer(gsrv, srv)
+	return gsrv, nil
 }
 
 var _ api.LogServer = (*grpcServer)(nil)
