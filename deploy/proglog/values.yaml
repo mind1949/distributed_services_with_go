@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: github.com/mind1949/proglog
+  repository: mind1949/proglog
   tag: 0.0.1
   pullPolicy: IfNotPresent
 serfPort: 8401

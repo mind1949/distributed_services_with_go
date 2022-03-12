@@ -69,3 +69,9 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/spf13/viper v1.10.1
 )
+
+replace (
+	google.golang.org/genproto v0.0.0 => github.com/grpc/genproto-go v0.0.0
+	google.golang.org/grpc v1.44.0 => github.com/grpc/grpc-go v1.44.0
+	google.golang.org/protobuf v1.27.1 => github.com/protocolbuffers/protobuf-go v1.27.1
+)
